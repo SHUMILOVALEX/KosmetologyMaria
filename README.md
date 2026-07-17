@@ -33,10 +33,11 @@ js/main.js                     Логика: данные студии, меню
 ```js
 const CONFIG = {
   studioName:   'PURA SKIN STUDIO',
-  masterName:   'Анна Соколова',
-  city:         'Москва',
-  phone:        '+7 (999) 123-45-67',
-  instagram:    '@pura.skin.studio',
+  masterName:   'Мария Шумилова',
+  city:         'Челябинск',
+  instagram:    '@mari_shymi',
+  telegram:     '@mari_shymi',
+  vk:           'mari2406ptrv',
   ...
 };
 ```
@@ -54,7 +55,7 @@ const CONFIG = {
 Чтобы поставить реальное фото, замените такой блок на обычный `<img>`, например:
 
 ```html
-<img src="images/portrait.jpg" alt="Анна Соколова, косметолог" style="border-radius:16px; aspect-ratio:3/4; object-fit:cover;">
+<img src="images/portrait.jpg" alt="Мария Шумилова, косметолог" style="border-radius:16px; aspect-ratio:3/4; object-fit:cover;">
 ```
 
 Создайте папку `images/` рядом с HTML-файлами и положите туда свои фотографии.

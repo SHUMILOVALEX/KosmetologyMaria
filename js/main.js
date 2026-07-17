@@ -9,18 +9,17 @@
 
 const CONFIG = {
   studioName:   'PURA SKIN STUDIO',
-  masterName:   'Анна Соколова',
+  masterName:   'Мария Шумилова',
   specialty:    'Косметолог-эстетист, специалист по проблемной и возрастной коже',
-  city:         'Москва',
-  address:      'ул. Примерная, 12, 3 этаж',
-  phone:        '+7 (999) 123-45-67',
-  phoneRaw:     '+79991234567',
+  city:         'Челябинск',
+  address:      'проспект Победы, 161',
   email:        'hello@puraskin.studio',
-  instagram:    '@pura.skin.studio',
-  instagramUrl: 'https://instagram.com/pura.skin.studio',
-  telegram:     '@puraskin',
-  telegramUrl:  'https://t.me/puraskin',
-  whatsappUrl:  'https://wa.me/79991234567',
+  instagram:    '@mari_shymi',
+  instagramUrl: 'https://instagram.com/mari_shymi',
+  telegram:     '@mari_shymi',
+  telegramUrl:  'https://t.me/mari_shymi',
+  vk:           'mari2406ptrv',
+  vkUrl:        'https://vk.com/mari2406ptrv',
   workHours:    'Пн–Сб, 10:00–20:00',
   year:         '2026',
 };
@@ -46,11 +45,10 @@ function applyConfig(){
   document.querySelectorAll('[data-cfg-href]').forEach(el => {
     const key = el.getAttribute('data-cfg-href');
     const map = {
-      phone: `tel:${CONFIG.phoneRaw}`,
       email: `mailto:${CONFIG.email}`,
       instagram: CONFIG.instagramUrl,
       telegram: CONFIG.telegramUrl,
-      whatsapp: CONFIG.whatsappUrl,
+      vk: CONFIG.vkUrl,
     };
     if (map[key]) el.setAttribute('href', map[key]);
   });

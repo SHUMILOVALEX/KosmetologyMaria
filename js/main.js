@@ -12,7 +12,6 @@ const CONFIG = {
   masterName:   'Мария Шумилова',
   specialty:    'Косметолог-эстетист, специалист по проблемной и возрастной коже',
   city:         'Челябинск',
-  address:      'проспект Победы, 161',
   email:        'hello@puraskin.studio',
   instagram:    '@mari_shymi',
   instagramUrl: 'https://instagram.com/mari_shymi',

@@ -1,4 +1,4 @@
-# PURA SKIN STUDIO — сайт мастера-косметолога
+# MariaKosmetics — сайт мастера-косметолога
 
 Статический сайт (HTML/CSS/JS, без бэкенда). Работает полностью локально — открывается прямо в браузере.
 
@@ -32,7 +32,7 @@ js/main.js                     Логика: данные студии, меню
 
 ```js
 const CONFIG = {
-  studioName:   'PURA SKIN STUDIO',
+  studioName:   'MariaKosmetics',
   masterName:   'Мария Шумилова',
   city:         'Челябинск',
   instagram:    '@mari_shymi',

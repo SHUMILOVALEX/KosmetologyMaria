@@ -572,6 +572,7 @@ p{ margin: 0 0 1em; color: var(--c-gray-dark); }
   width:100%;
   background:none; border:none; text-align:left;
   font-size: 18px; font-weight:700;
+  color: var(--c-green-dark);
 }
 .accordion-q .plus{
   width:28px; height:28px; border-radius:50%;

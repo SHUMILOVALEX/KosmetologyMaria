@@ -1,5 +1,6 @@
 // Принимает заявку с формы онлайн-записи и пересылает её мастеру в Telegram.
 // Нужны переменные окружения TELEGRAM_BOT_TOKEN и TELEGRAM_CHAT_ID (настраиваются в Netlify).
+// TELEGRAM_CHAT_ID может содержать несколько id через запятую — заявка придёт каждому.
 
 exports.handler = async (event) => {
   if (event.httpMethod !== 'POST') {
@@ -18,8 +19,11 @@ exports.handler = async (event) => {
   }
 
   const token = process.env.TELEGRAM_BOT_TOKEN;
-  const chatId = process.env.TELEGRAM_CHAT_ID;
-  if (!token || !chatId) {
+  const chatIds = (process.env.TELEGRAM_CHAT_ID || '')
+    .split(',')
+    .map(id => id.trim())
+    .filter(Boolean);
+  if (!token || !chatIds.length) {
     return { statusCode: 500, body: 'Server not configured' };
   }
 
@@ -34,13 +38,15 @@ exports.handler = async (event) => {
     `Проблема: ${Array.isArray(data.problems) && data.problems.length ? data.problems.join(', ') : '—'}`,
   ].join('\n');
 
-  const res = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ chat_id: chatId, text }),
-  });
+  const results = await Promise.all(chatIds.map(chatId =>
+    fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ chat_id: chatId, text }),
+    })
+  ));
 
-  if (!res.ok) {
+  if (!results.some(res => res.ok)) {
     return { statusCode: 502, body: 'Telegram delivery failed' };
   }
 

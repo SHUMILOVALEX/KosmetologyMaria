@@ -206,20 +206,55 @@ function initBookingForm(){
 
   showStep(0);
 
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    // ВАЖНО: это фронтенд-демонстрация. Реальная отправка заявки
-    // не производится — нужна интеграция с CRM/почтой/Telegram-ботом.
-    // См. README.md, раздел "Форма записи".
-    const nameField = form.querySelector('#client-name');
+  function showConfirm(name){
     const confirmName = document.querySelector('#confirm-name');
-    if (confirmName) confirmName.textContent = nameField && nameField.value ? nameField.value : 'Вы';
+    if (confirmName) confirmName.textContent = name || 'Вы';
     form.querySelectorAll('.booking-step').forEach(s => s.style.display = 'none');
     const confirmPanel = document.querySelector('#booking-confirm');
     if (confirmPanel) confirmPanel.style.display = '';
     const stepsRow = document.querySelector('.steps-row');
     if (stepsRow) stepsRow.style.display = 'none';
     window.scrollTo({top: form.offsetTop - 130, behavior:'smooth'});
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const selectedCard = form.querySelector('.option-card.selected');
+    const selectedSlot = form.querySelector('.slot-btn.selected');
+    const dateField = form.querySelector('#booking-date');
+    const nameField = form.querySelector('#client-name');
+    const phoneField = form.querySelector('#client-phone');
+    const birthdateField = form.querySelector('#client-birthdate');
+    const problems = Array.from(form.querySelectorAll('input[name="problem"]:checked'))
+      .map(cb => cb.parentElement.textContent.trim());
+
+    const payload = {
+      serviceLabel: selectedCard ? (selectedCard.querySelector('h3')?.textContent || '') : '',
+      date: dateField ? dateField.value : '',
+      time: selectedSlot ? selectedSlot.textContent : '',
+      name: nameField ? nameField.value : '',
+      phone: phoneField ? phoneField.value : '',
+      birthdate: birthdateField ? birthdateField.value : '',
+      problems,
+    };
+
+    const submitBtn = form.querySelector('button[type="submit"]');
+    if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Отправка...'; }
+
+    try {
+      const res = await fetch('/.netlify/functions/book', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      if (!res.ok) throw new Error('request failed');
+      showConfirm(payload.name);
+    } catch (err) {
+      alert('Не удалось отправить заявку. Попробуйте ещё раз или позвоните нам напрямую.');
+    } finally {
+      if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Подтвердить запись'; }
+    }
   });
 }
 

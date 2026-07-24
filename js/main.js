@@ -188,8 +188,8 @@ function initBookingForm(){
     card.addEventListener('click', () => selectService(card));
   });
 
-  // предзаполнение услуги из ссылки вида booking.html?service=cleaning
-  const knownServices = ['massage','peeling','pro-care','biorevitalization','cleaning','treatment','home-care'];
+  // предзаполнение услуги из ссылки вида booking.html?service=peeling
+  const knownServices = ['consultation','massage','peeling','peeling-training','pro-care','treatment','home-care'];
   const requestedService = new URLSearchParams(window.location.search).get('service');
   if (requestedService && knownServices.includes(requestedService)){
     const match = form.querySelector(`.option-card[data-service="${requestedService}"]`);

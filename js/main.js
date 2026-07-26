@@ -78,10 +78,22 @@ function initMobileMenu(){
     document.body.style.overflow = menu.classList.contains('is-open') ? 'hidden' : '';
   };
 
+  // мгновенное закрытие без CSS-анимации — используется перед переходом
+  // на другую страницу, иначе браузер успевает "заморозить" кадр с ещё
+  // не закрытым меню, и он наплывает поверх загружающейся страницы
+  const closeInstant = () => {
+    menu.style.transition = 'none';
+    burger.classList.remove('is-active');
+    menu.classList.remove('is-open');
+    document.body.style.overflow = '';
+    menu.offsetHeight; // force reflow
+    menu.style.transition = '';
+  };
+
   burger.addEventListener('click', toggle);
   if (closeBtn) closeBtn.addEventListener('click', toggle);
   menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
-    if (menu.classList.contains('is-open')) toggle();
+    if (menu.classList.contains('is-open')) closeInstant();
   }));
 }
 

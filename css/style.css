@@ -68,11 +68,14 @@ h1,h2,h3,h4{
   font-weight: 700;
   letter-spacing: -0.02em;
   line-height: 1.1;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  hyphens: auto;
 }
 h1{ font-size: clamp(36px, 6vw, 68px); }
 h2{ font-size: clamp(28px, 4.2vw, 46px); }
 h3{ font-size: clamp(20px, 2.6vw, 26px); }
-p{ margin: 0 0 1em; color: var(--c-gray-dark); }
+p{ margin: 0 0 1em; color: var(--c-gray-dark); overflow-wrap: break-word; word-break: break-word; }
 .on-dark p{ color: var(--c-green-light); }
 
 .eyebrow{
